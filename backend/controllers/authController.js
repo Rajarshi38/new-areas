@@ -10,8 +10,15 @@ import generateToken from "../utils/generateToken.js";
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+  console.log(user);
+  console.log(await user.matchPassword(password));
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
+    res.status(201).json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    });
   } else {
     res.status(401).json({
       message: "Invalid email and password",
@@ -66,4 +73,34 @@ const signup = asyncHandler(async (req, res) => {
   }
 });
 
-export { loginUser, signup, logout };
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res *
+ * @description get profile data of user
+ */
+const getProfile = asyncHandler(async (req, res) => {
+  const user = {
+    id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+
+  res.status(200).json({
+    user,
+  });
+});
+
+const updateProfile = asyncHandler(async (req, res) => {
+  const currentUser = await User.findById(req.user._id);
+  if (currentUser) {
+    currentUser.name = req.body.name || currentUser.name;
+    currentUser.email = req.body.email || currentUser.email;
+  }
+  const updatedUser = await currentUser.save();
+  res.status(200).json({
+    message: "Updated user successfully",
+    user: updatedUser,
+  });
+});
+
+export { loginUser, signup, logout, getProfile, updateProfile };
