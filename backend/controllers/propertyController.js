@@ -40,7 +40,6 @@ export const addProperty = asyncHandler(async (req, res) => {
     length,
     breadth,
   } = req.body;
-  console.log(req.body);
   const owner = await User.findById(req.user._id);
   if (!owner) {
     res.status(400);
