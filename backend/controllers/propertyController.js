@@ -9,7 +9,30 @@ import User from "../models/userModel.js";
  */
 export const getAllProperties = asyncHandler(async (req, res) => {
   try {
-    const properties = await Property.find();
+    const { location, type, priceStart, priceEnd, availableDate } = req.query;
+
+    const find = new Map();
+    if (location) {
+      find.set("location", location);
+    }
+    if (type) {
+      find.set("propertyType", type.toLowerCase());
+    }
+    if (priceStart && priceEnd) {
+      find.set("rent", { $gt: Number(priceStart), $lt: Number(priceEnd) });
+    } else if (priceStart) {
+      find.set("rent", { $gt: Number(priceStart) });
+    } else if (priceEnd) {
+      find.set("rent", { $lt: Number(priceEnd) });
+    }
+
+    if (availableDate) {
+      find.set("availableDate", { $gte: Date(availableDate) });
+    }
+
+    const queryObject = Object.fromEntries(find);
+
+    const properties = await Property.find(queryObject);
 
     res.status(201).json({
       message: "Fetched properties successfully",

@@ -13,9 +13,12 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
     res.status(201).json({
-      id: user._id,
-      name: user.name,
-      email: user.email,
+      message: "Logged in successfully!",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } else {
     res.status(401).json({
@@ -61,9 +64,12 @@ const signup = asyncHandler(async (req, res) => {
   if (user) {
     generateToken(res, user._id);
     res.status(201).json({
-      id: user._id,
-      name: user.name,
-      email: user.email,
+      message: "Registered user successfully!",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } else {
     res.status(400);
@@ -78,9 +84,12 @@ const signup = asyncHandler(async (req, res) => {
  */
 const getProfile = asyncHandler(async (req, res) => {
   const user = {
-    id: req.user._id,
-    name: req.user.name,
-    email: req.user.email,
+    message: "Fetched user profile successfully",
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+    },
   };
 
   res.status(200).json({

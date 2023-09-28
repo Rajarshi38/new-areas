@@ -52,6 +52,9 @@ const propertySchema = new Schema(
       required: true,
       min: 2,
     },
+    availableDate: {
+      type: Date,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
