@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 const port = process.env.port || 8000;
@@ -14,6 +15,7 @@ connectDB();
 const app = express();
 
 //middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -25,6 +27,12 @@ app.use("/api", uploadRouter);
 
 //initialize
 app.get("/api", (req, res) => {
+  res.status(200).json({
+    message: "api route is up and running",
+  });
+});
+
+app.get("/", (req, res) => {
   res.status(200).json({
     message: "Server is up and running",
   });
