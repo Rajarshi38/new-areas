@@ -133,8 +133,8 @@ export const updateProperty = asyncHandler(async (req, res) => {
     throw new Error("User not found!");
   }
 
-  const propertyBelongsToUser = currentUser.properties.find(
-    (property) => property._id === propertyId
+  const propertyBelongsToUser = currentUser.properties.find((property) =>
+    property._id.equals(propertyId)
   );
   if (!propertyBelongsToUser) {
     res.status(400);
@@ -191,8 +191,8 @@ export const deleteProperty = asyncHandler(async (req, res) => {
     throw new Error("User not found!");
   }
 
-  const propertyBelongsToUser = currentUser.properties.find(
-    (property) => property._id === propertyId
+  const propertyBelongsToUser = currentUser.properties.find((property) =>
+    property._id.equals(propertyId)
   );
   if (!propertyBelongsToUser) {
     res.status(400);
