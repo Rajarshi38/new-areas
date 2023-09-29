@@ -4,6 +4,16 @@
 
 deployed link - [server](https://reunion-api-xq0y.onrender.com/api)
 
+##Endpoints
+
+- POST /api/auth/login - Login user
+- POST /api/auth/signup - Register user
+- GET /api/list-properties - Get all properties
+- POST /api/property - Add a Property
+- GET /api/property - Fetch all properties belong to a user
+- PUT /api/property/:id - Update a particular property which belonged to a user
+- DELETE /api/property/:id - Delete a particular property which belonged to a user.
+
 ## Technologies used
 
 - Express.js
