@@ -1,5 +1,7 @@
 # Backend Server for PropFinder
 
+**Note** - because I am on free plan this link gets unactive after some time it is not used. so first time will take time
+
 deployed link - [server](https://reunion-api-xq0y.onrender.com/api)
 
 ## Technologies used
