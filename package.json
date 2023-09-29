@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.0.0 < 20"
   },
   "scripts": {
     "server": "nodemon backend/server.js"
